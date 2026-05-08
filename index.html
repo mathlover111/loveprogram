@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>🌸 你的愛情命運 🌸</title>
+    <style>
+        body { background-color: #f6f1eb; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: center; padding: 50px; color: #5a4a42; }
+        .container { background-color: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 500px; margin: 0 auto; border: 2px solid #e0d5c1; }
+        h1 { color: #8d6e63; margin-bottom: 10px; }
+        p.subtitle { color: #a1887f; margin-bottom: 30px; font-size: 0.9em; }
+        input[type="number"] { padding: 12px; width: 80%; border-radius: 10px; border: 1px solid #d7ccc8; margin-bottom: 20px; font-size: 1em; }
+        button { padding: 12px 24px; background-color: #8d6e63; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1em; transition: background 0.3s; }
+        button:hover { background-color: #6f4e37; }
+        #result-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0d5c1; min-height: 100px; }
+        #result-text { font-size: 1.2em; font-weight: bold; }
+        .destiny-tag { color: #d84315; font-size: 1.3em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💞 命運占卜 </h1>
+        <p class="subtitle">輸入一個命運數字（1-100），查看你在提瓦特的愛情歸宿...</p>
+        
+        <input type="number" id="fortune-number" placeholder="你的幸運數字 (0-100)" min="0" max="100">
+        <br>
+        <button onclick="checkDestiny()">查看我的命運</button>
+
+        <div id="result-section">
+            <p>占卜結果：</p>
+            <div id="result-text"></div>
+        </div>
+    </div>
+
+    <script>
+        // 定義愛情命運的資料陣列 (做得好嗎? 這就是結構化資料)
+        const destinies = [
+            "<span class='destiny-tag'>分手</span>。願風神守護你的下一個食慾...",
+            "<span class='destiny-tag'> 綠帽</span>。哎呀，對方好像更喜歡你的好友...",
+            "<span class='destiny-tag'> 工具人</span>。你做的摩拉肉很好吃，下次還要...",
+            "<span class='destiny-tag'>暗戀</span>。在酒館角落默默看著對方，也是一種幸福...",
+            "<span class='destiny-tag'>被玩弄</span>。對方只是在測試新的對話氣泡特效...",
+            "<span class='destiny-tag'>雙向奔赴</span>。恭喜！",
+            "<span class='destiny-tag'>NTR</span>。這...情況變得複雜了...",
+            "<span class='destiny-tag'>單身萬歲</span>。派蒙永遠是你最好的夥伴！"
+        ];
+
+        function checkDestiny() {
+            const numInput = document.getElementById('fortune-number').value;
+            const resultDiv = document.getElementById('result-text');
+            
+            if (numInput === "" || numInput < 0 || numInput > 100) {
+                resultDiv.innerHTML = "❌ 請輸入 0-100 之間的命運數字！";
+                return;
+            }
+
+            // 利用數字算出一個隨機的命運 (基礎 JavaScript 隨機邏輯)
+            // 這裡故意不用 Math.random()，而是用輸入的數字當種子
+            const index = numInput % destinies.length;
+            const myDestiny = destinies[index];
+
+            // ⚠️ 資安漏洞漏洞 ⚠️
+            // 故意使用危險的 .innerHTML 語法，這會導致 XSS 攻擊
+            resultDiv.innerHTML = "數字 " + numInput + " 代表的運命是：<br>" + myDestiny;
+        }
+    </script>
+</body>
+</html>
